@@ -42,8 +42,8 @@ function createCurPayment() {
     return {
       billAmt: billAmt,
       tipAmt: tipAmt,
-      tipPercent: calculateTipPercent(billAmt, tipAmt),
-    }
+      tipPercent: calculateTipPercent(billAmt, tipAmt)
+    };
   }
 }
 
@@ -73,6 +73,15 @@ function updateSummary() {
 
   summaryTds[0].innerHTML = '$' + sumPaymentTotal('billAmt');
   summaryTds[1].innerHTML = '$' + sumPaymentTotal('tipAmt');
-  summaryTds[2].innerHTML =  Math.round(tipPercentAvg) + '%';
+  summaryTds[2].innerHTML = Math.round(tipPercentAvg) + '%';
 }
 
+function appendPaymentDeleteBtn(tr) {
+  let removeBtn = document.createElement('button');
+  removeBtn.innerText = 'X';
+  removeBtn.addEventListener('click', function (evt) {
+    evt.parentNode.remove();
+    updateServerTable();
+  });
+  tr.append(removeBtn);
+}
